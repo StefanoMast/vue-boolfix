@@ -1,28 +1,40 @@
 <template>
-  <div class="main">
-      <ul>
-          <AppCArd/>
-      </ul>
-  </div>
+  <section class="movies">
+      <div class="container">
+          <ul>
+              <AppCard v-for="item in movies" :key="item.id" :movie="item"/>
+          </ul>
+      </div>
+
+  </section>
+      
 </template>
 
 <script>
 import AppCard from './AppCard.vue';
+
 export default {
     name: "AppMain",
     components: {
         AppCard
+    }, 
+    props: {
+        movies: Object
     }
     
 
-}
+};
 </script>
 
 <style lang="scss">
-.main {
-    width: 100vh;
-    height: 500px;
-    background-color: aquamarine;
+.movies {
+    padding-top: 2rem;
+
 }
+.movies-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 
 </style>

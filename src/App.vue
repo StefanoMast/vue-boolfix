@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div id="app">
     <AppHeader @searchClick="search"/>
-    <AppMain/>
+    <AppMain :movies="moviesList"/>
   </div>
 
 
@@ -9,7 +9,7 @@
 
 <script>
 import AppHeader from './components/AppHeader.vue';
-import AppMain from './components/AppMain.vue'
+import AppMain from './components/AppMain.vue';
 import axios from "axios";
 
 
@@ -19,15 +19,27 @@ export default {
     AppHeader,
     AppMain
 },
+data() {
+  return {
+    apiKey: "9437af37c20a760ff2a23962de6d7fa4",
+    moviesList: []
+  }
+},
   methods: {
   search(searchKey) {
-    axios.get("https://api.themoviedb.org/3/search/movie?api_key=9437af37c20a760ff2a23962de6d7fa4&query=vita")
+    axios
+    .get("https://api.themoviedb.org/3/search/movie", {
+      params: {
+        api_key: this.apiKey,
+        query: searchKey
+    }}
+    )
     .then((resp)=> {
-      console.log(resp);
+      this.moviesList = resp.data.results;
     });
   }
 }
-}
+};
 </script>
 
 <style lang="scss">

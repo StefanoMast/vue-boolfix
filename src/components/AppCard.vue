@@ -1,10 +1,10 @@
 <template>
   <li class="card">
-      <div class="card-">
-          <h2 class="title">Titolo</h2>
-          <h4 class="orginal-title">Titolo orginale</h4>
-          <p class="language">Lingua</p>
-          <p class="vote">Voto</p>
+      <div class="card-inner">
+          <h2 class="title">{{movie.title}}</h2>
+          <h4 class="orginal-title">{{movie.original_title}}</h4>
+          <p class="language">{{movie.original_language}}</p>
+          <p class="vote">Voto: {{movie.vote_avarage}}</p>
       </div>
   </li>
 </template>
@@ -13,7 +13,7 @@
 export default {
     name: "AppCard"
 
-}
+};
 </script>
 
 <style lang="scss" scoped>
