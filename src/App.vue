@@ -21,35 +21,40 @@ export default {
 },
 data() {
   return {
+    apiKey: "02271e765b18b4b64347f49cbd81a43a",
     moviesList: [],
     seriesList: []
   };
 },
   methods: {
   search(searchKey) {
-    axios
-    .get("https://api.themoviedb.org/3/search/movie", {
+    const options = {
       params: {
-        api_key: "9437af37c20a760ff2a23962de6d7fa4",
-        query: searchKey
-    },
-    })
-    .then((resp)=> {
-      this.moviesList = resp.data.results;
-    });
-
-
-    axios
-    .get("https://api.themoviedb.org/3/search/tv", {
-       params: {
-       api_key: "6b6f49a0543af0887649fa643a8df95b",
-       query: searchKey,
+        api_key: this.apiKey,
+        query: searchKey,
       },
-        })
-        .then((resp) => {
-          this.seriesList = resp.data.results;
-          console.log(this.seriesList);
-      });
+    };
+    // sintassi chiamate multiple
+    const reqMovies = axios.get("https://api.themoviedb.org/3/search/movie", options);
+    const reqSeries = axios.get("https://api.themoviedb.org/3/search/tv", options);
+
+    axios.all([reqMovies, reqSeries]). then(resp => {
+      this.moviesList = resp[0].data.results;
+      this.seriesList = resp[1].data.results;   
+    });
+    // sintassi chiamate separate
+    // axios
+    // .get("https://api.themoviedb.org/3/search/movie", options)
+    // .then((resp)=> {
+    //   this.moviesList = resp.data.results;
+    // });
+
+
+    // axios
+    // .get("https://api.themoviedb.org/3/search/tv", options)
+    //     .then((resp) => {
+    //       this.seriesList = resp.data.results;
+    //   });
   }
 }
 };

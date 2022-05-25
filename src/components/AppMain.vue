@@ -3,11 +3,11 @@
       <div class="container">
           <h2>Film</h2>
           <ul class="list">
-              <AppCard v-for="item in movies" :key="item.id" :movie="item"/>
+              <AppCard v-for="item in movies" :key="item.id" :cardObj="item"/>
           </ul>
           <h2>SerieTv</h2>
           <ul class="list">
-              <AppCard v-for="item in series" :key="item.id" :movie="item"/>
+              <AppCard v-for="item in series" :key="item.id" :cardObj="item"/>
           </ul>
       </div>
 
