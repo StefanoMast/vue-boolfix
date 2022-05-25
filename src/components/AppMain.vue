@@ -38,6 +38,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     padding-top: 2rem;
+    min-height: 100vh;
 }
 
 ul {

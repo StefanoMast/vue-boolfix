@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <AppHeader @searchClick="search"/>
-    <AppMain :movies="moviesList"/>
+    <AppMain :movies="moviesList" :series="seriesList"/>
   </div>
 
 

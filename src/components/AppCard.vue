@@ -1,16 +1,17 @@
 <template>
   <li class="card">
       <div class="card-inner">
-          <img
-            v-if="cardObj.poster_path"
-            :src="`http://image.tmdb.org/t/p/w300/${object.poster_path}`"
-            :alt="cardTitle"
+          <div class="card-image">
+            <img class="card-img" v-if="cardObj.poster_path"
+                :src="(`https://image.tmdb.org/t/p/w342${posterPath}`)"
+                alt=""
             />
-          <img
+            <img class="card-empty"
             v-else
             src="../assets/img/immagine-vuota.jpg"
             alt="Poster_not_available"
             />
+          </div>
           <h2 class="title">{{cardTitle}}</h2>
           <h4 class="orginal-title">{{cardOriginalTitle}}</h4>
           <!-- se la lingua ha la bandiera faccio vedere l'immagine -->
@@ -20,11 +21,11 @@
           :src="require(`../assets/img/${cardObj.original_language}.png`)" 
           :alt="cardObj.original_language"
           />
-          <!-- altrimenti faccio vedere il testo -->
+        
           <p v-else class="language">{{cardObj.original_language}}</p>
-          <p class="vote">Voto: {{cardObj.vote_average}}</p>
+          <p class="vote">Voto: {{filledStars}}</p>
           <p>
-              <i v-for="n in 5" :key="n" class="fas fa-star" :class="n <= filledStars ? 'fas' : 'far'">
+              <i v-for="n in filledStars" :key="n" class="fas fa-star" :class="n <= 5 ? 'fas' : 'far'">
     <!-- //se n è minore o uguale al voto, allora metto *, altrimenti metto # -->
               </i>
           </p>
@@ -41,7 +42,7 @@ export default {
     },
     data() {
         return {
-            flags: ["en", "it"]
+            flags: ["en", "it", "el", "es", "fr", "pt", "sv", "ja", "sh"]
         }
     },
     computed: {
@@ -56,7 +57,10 @@ export default {
     },
     filledStars() {
         return Math.ceil(this.cardObj.vote_average / 2);
-    }
+    },
+    posterPath() {
+         return this.cardObj.poster_path;
+     }
     }
 
 };
@@ -66,16 +70,25 @@ export default {
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
 .card {
-  width: calc(100%/4 - 8px);
+  width: calc(100%/5 - 8px);
   margin: 4px;
   padding: 1rem;
-  border: 1px solid black;
   text-align: center;
     
 }
 
 .language-flag {
     width: 2rem;
+}
+
+.card-img {
+    width: 100%;
+    height: 300px;
+}
+
+.card-empty {
+    width: 100%;
+    height: 300px;
 }
 
 </style>
